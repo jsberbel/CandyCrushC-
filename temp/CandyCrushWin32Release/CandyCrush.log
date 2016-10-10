@@ -1,0 +1,32 @@
+﻿  Game.cpp
+Game.cpp(92): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+  Grid.cpp
+Grid.cpp(76): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Grid.cpp(77): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Grid.cpp(78): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Grid.cpp(79): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+Grid.cpp(129): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+  Generating code
+  All 397 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CandyCrush.vcxproj -> F:\Documents\Visual Studio 2015\Projects\CandyCrush\\build\Win32Release\CandyCrush.exe
+  CandyCrush.vcxproj -> F:\Documents\Visual Studio 2015\Projects\CandyCrush\\build\Win32Release\CandyCrush.pdb (Full PDB)
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libFLAC-8.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libfreetype-6.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libjpeg-9.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libmodplug-1.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libogg-0.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libpng16-16.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libtiff-5.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libvorbis-0.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libvorbisfile-3.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\libwebp-4.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\SDL2.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\SDL2_image.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\SDL2_mixer.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\SDL2_net.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\SDL2_ttf.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\smpeg2.dll
+  F:\Documents\Visual Studio 2015\Projects\CandyCrush\\deps\dll\x86\zlib1.dll
+  17 File(s) copied
