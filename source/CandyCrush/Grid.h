@@ -1,19 +1,23 @@
 #pragma once
 #include "TextureManager.h"
 
+// Movement type when swapping candies
 enum MOVE_TYPE { UP, LEFT, DOWN, RIGHT };
 
+// Candy structure to store its position when animating and its texture
 struct Candy {
 	SDL_Rect rect;
 	TEXTURE_ID id = EMPTY_CANDY;
 };
 
+// Cell structure to store its position, its texture and its candy (wether is empty or not)
 struct Cell {
 	SDL_Rect rect;
 	TEXTURE_ID id = EMPTY_CELL;
 	Candy candy;
 };
 
+// Info structure for swapping candies
 struct SwapInfo {
 	int fromX, fromY, toX, toY;
 	SDL_Rect fromPos;
@@ -25,22 +29,24 @@ struct SwapInfo {
 	};
 };
 
+// Shift structure for shifting candies
 struct ShiftInfo {
 	int i, j, fromPos, toPos;
 	float percent = 0.0f;
 };
 
-enum GridState { WAITING, SWAPPING, LINE_CHECKING, ADDING, SHIFTING };
+// Grid state to follow an state machine when updating the game
+enum GridState { WAITING, SWAPPING_CANDIES, LINE_CHECKING, ADDING_CANDIES, SHIFTING_CANDIES };
 
 class Grid {
 	Cell **data;
 	int rows, cols;
-	GridState gameState = WAITING;
+	GridState gameState = LINE_CHECKING;
 	SwapInfo swapInfo;
 	ShiftInfo shiftInfo;
-	bool endCheckLine, endAdding, endShifting = true;
+	bool endAdding, endShifting = true;
 
-	int CheckNeighbours(int i, int j);
+	bool CheckNeighbours(int i, int j);
 	void KillNeighbours(int i, int j);
 	inline TEXTURE_ID &CandyID(int i, int j) { return data[i][j].candy.id; }
 	inline SDL_Rect &CandyRect(int i, int j) { return data[i][j].candy.rect; }
@@ -52,6 +58,6 @@ public:
 	inline int GetCols() { return cols; }
 
 	void CheckSwap(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY);
-	void Update(float deltaTime);
+	void Update(Uint32 deltaTime);
 	void Draw(TextureManager &textureManager);
 };

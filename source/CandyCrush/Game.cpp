@@ -37,17 +37,17 @@ Game::~Game() {
 }
 
 void Game::LoadTextures() {
-	textureManager.LoadTexture(EMPTY_CELL, "../../res/gfx/empty.png");
-	textureManager.LoadTexture(CANDY_BLUE, "../../res/gfx/blue.png");
-	textureManager.LoadTexture(CANDY_RED, "../../res/gfx/red.png");
-	textureManager.LoadTexture(CANDY_ORANGE, "../../res/gfx/orange.png");
-	textureManager.LoadTexture(CANDY_PURPLE, "../../res/gfx/purple.png");
-	textureManager.LoadTexture(CANDY_GREEN, "../../res/gfx/green.png");
-	textureManager.LoadTexture(CANDY_YELLOW, "../../res/gfx/yellow.png");
-	textureManager.LoadTexture(BG, "../../res/gfx/bg.jpg");
+	textureManager.LoadTexture(EMPTY_CELL, "../../assets/gfx/empty.png");
+	textureManager.LoadTexture(CANDY_BLUE, "../../assets/gfx/blue.png");
+	textureManager.LoadTexture(CANDY_RED, "../../assets/gfx/red.png");
+	textureManager.LoadTexture(CANDY_ORANGE, "../../assets/gfx/orange.png");
+	textureManager.LoadTexture(CANDY_PURPLE, "../../assets/gfx/purple.png");
+	textureManager.LoadTexture(CANDY_GREEN, "../../assets/gfx/green.png");
+	textureManager.LoadTexture(CANDY_YELLOW, "../../assets/gfx/yellow.png");
+	textureManager.LoadTexture(BACKGROUND, "../../assets/gfx/bg.jpg");
 }
 
-void Game::Update(float deltaTime) {
+void Game::Update(Uint32 deltaTime) {
 	// Poll SDL events
 	SDL_Event e;
 	while (SDL_PollEvent(&e) != 0) {
@@ -75,7 +75,7 @@ void Game::Update(float deltaTime) {
 
 void Game::Draw() {
 	SDL_RenderClear(renderer); //Clear screen
-	textureManager.Render(BG, nullptr);
+	textureManager.Render(BACKGROUND, nullptr);
 	grid.Draw(textureManager); //Render grid
 	SDL_RenderPresent(renderer); //Update screen
 }
@@ -83,7 +83,7 @@ void Game::Draw() {
 void Game::Run() {
 	LoadTextures();
 
-	float deltaTime = 0.0f; //delta time in seconds
+	Uint32 deltaTime = 0; //delta time in seconds
 	auto lastTime = SDL_GetTicks(); //last time sample in seconds
 	float renderTime = 0.0f; //time control for rendering
 

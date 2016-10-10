@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <exception>
 
-// Screen dimension constants
+// Screen and grid dimensions constants
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define MAX_ROWS 6
@@ -16,7 +16,7 @@ int main(int argc, char* args[]) {
 		auto sdlError = SDL_GetError();
 		if (strcmp(sdlError, "")) std::cerr << "SDL Error: " << sdlError << std::endl;
 		auto imgError = IMG_GetError();
-		if (strcmp(imgError, "")) std::cerr << "SDL_img Error: " << imgError << std::endl;
+		if (strcmp(imgError, "") && strcmp(imgError, sdlError)) std::cerr << "SDL_img Error: " << imgError << std::endl;
 		std::cin.get();
 	}
 	return 0;
