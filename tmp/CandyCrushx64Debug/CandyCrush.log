@@ -1,0 +1,5 @@
+﻿  Game.cpp
+c:\users\jserrano\documents\github\candycrushcpp\src\candycrush\inputmanager.h(92): warning C4715: 'INPUT_VALUE::operator()': not all control paths return a value
+  CandyCrush.vcxproj -> C:\Users\jserrano\Documents\GitHub\CandyCrushCpp\\bin\x64Debug\CandyCrush.exe
+  CandyCrush.vcxproj -> C:\Users\jserrano\Documents\GitHub\CandyCrushCpp\\bin\x64Debug\CandyCrush.pdb (Full PDB)
+  0 File(s) copied
