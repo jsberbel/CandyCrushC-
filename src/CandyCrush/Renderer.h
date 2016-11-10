@@ -4,8 +4,8 @@
 #include "Sprite.h"
 
 class Renderer {
-	SDL_Window* m_SDLWindow = nullptr;
-	SDL_Renderer* m_SDLRenderer = nullptr;
+	SDL_Window* m_SDLWindow{ nullptr };
+	SDL_Renderer* m_SDLRenderer{ nullptr };
 	const int m_screenWidth, m_screenHeight;
 	std::unordered_map<OBJECT_ID, SDL_Texture*> m_textureData;
 public:
