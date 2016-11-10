@@ -1,0 +1,9 @@
+!*.lib
+!*.dll
+*.opendb
+*.sdf
+*.suo
+*.exe
+*.props
+*temp*
+*.vs*
