@@ -4,8 +4,10 @@
 // Screen and grid dimensions constants
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define MAX_ROWS 6		// --> provisional
-#define MAX_COLUMNS 7	// --> provisional
+#define MAX_ROWS 6
+#define MAX_COLUMNS 7
+#define CELL_WIDTH 80
+#define CELL_HEIGHT 80
 
 /*
 GAME
@@ -23,21 +25,15 @@ GRID
 	- rows & cols: ints para las filas y las columnas de la matriz
 	- gridState: game state de la máquina de estados del funcionamiento de la matriz
 	(...)
+
 OBJECTID
 	Contiene el enum y la información necesaria sobre los IDs de cada game object
 */
 
 int main(int argc, char* args[]) {
-	try {
-		Game game(SCREEN_WIDTH, SCREEN_HEIGHT, MAX_ROWS, MAX_COLUMNS);
-		game.Run();
-	} catch (std::exception e) {
-		std::cerr << e.what() << std::endl;
-		auto sdlError = SDL_GetError();
-		if (strcmp(sdlError, "")) std::cerr << "SDL Error: " << sdlError << std::endl;
-		auto imgError = IMG_GetError();
-		if (strcmp(imgError, "") && strcmp(imgError, sdlError)) std::cerr << "SDL_img Error: " << imgError << std::endl;
-		std::cin.get();
-	}
+	Renderer renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Grid grid(MAX_ROWS, MAX_COLUMNS, CELL_WIDTH, CELL_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Game game(grid, renderer);
+	game.Run();
 	return 0;
 }

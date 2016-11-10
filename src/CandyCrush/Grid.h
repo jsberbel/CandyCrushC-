@@ -4,27 +4,19 @@
 // Movement type when swapping candies
 enum MOVE_TYPE { UP, LEFT, DOWN, RIGHT };
 
-// Candy structure to store its position when animating and its texture
-struct Candy {
-	SDL_Rect rect;
-	OBJECT_ID id = EMPTY_CANDY;
-};
-
 // Cell structure to store its position, its texture and its candy (wether is empty or not)
-struct Cell {
-	SDL_Rect rect;
-	OBJECT_ID id = EMPTY_CELL;
-	Candy candy;
+struct Cell : Sprite {
+	Sprite candy;
 };
 
 // Info structure for swapping candies
 struct SwapInfo {
 	int fromX, fromY, toX, toY;
-	SDL_Rect fromPos;
-	SDL_Rect toPos;
+	Transform fromPos;
+	Transform toPos;
 	float percent = 0.0f;
 	bool reSwap = false;
-	void Set(int fx, int fy, int tx, int ty, const SDL_Rect &fp, const SDL_Rect &tp) { 
+	void Set(int fx, int fy, int tx, int ty, const Transform &fp, const Transform &tp) {
 		fromX = fx, fromY = fy, toX = tx, toY = ty, fromPos = fp, toPos = tp;
 	};
 };
@@ -47,9 +39,9 @@ class Grid {
 	ShiftInfo shiftInfo;
 
 	bool CheckNeighbours(int i, int j);
-	size_t KillNeighbours(int i, int j);
+	int KillNeighbours(int i, int j);
 	inline OBJECT_ID &CandyID(int i, int j) const { return cellData[i][j].candy.id; }
-	inline SDL_Rect &CandyRect(int i, int j) const { return cellData[i][j].candy.rect; }
+	inline Transform &CandyTransform(int i, int j) const { return cellData[i][j].candy.transform; }
 public:
 	Grid(int rows, int cols, int cellWidth, int cellHeight, int screenWidth, int screenHeight);
 	~Grid();

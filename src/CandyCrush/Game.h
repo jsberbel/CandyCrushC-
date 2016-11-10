@@ -13,8 +13,9 @@
 #define SCREEN_TICKS_PER_FRAME (1.0f / SCREEN_FPS)
 
 class Game {
-	Grid m_grid;
-	Renderer m_renderer;
+	Grid &m_grid;
+	Sprite m_background;
+	Renderer &m_renderer;
 	InputManager &m_inputManager;
 	bool m_isRunning;
 	int score = 0;
@@ -23,7 +24,7 @@ class Game {
 	void Update(Uint32 deltaTime);
 	void Draw();
 public:
-	Game(int screenWidth, int screenHeight, int rows, int cols);
+	Game(Grid &grid, Renderer &renderer);
 	~Game() = default;
 	void Run();
 };

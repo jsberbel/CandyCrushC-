@@ -1,14 +1,14 @@
 #include "Game.h"
-#include "Assert.h"
+#include "Logger.h"
+using namespace lgr;
 
-#define CELL_WIDTH 80
-#define CELL_HEIGHT 80
-
-Game::Game(int screenWidth, int screenHeight, int rows, int cols) : 
-	m_grid(rows, cols, CELL_WIDTH, CELL_HEIGHT, screenWidth, screenHeight),
-	m_renderer(screenWidth, screenHeight),
+Game::Game(Grid &grid, Renderer &renderer) :
+	m_grid(grid),
+	m_renderer(renderer),
 	m_inputManager(InputManager::Instance())
-{}
+{
+	m_background = { { 0, 0, m_renderer.GetScreenWidth(), m_renderer.GetScreenHeight() }, BACKGROUND };
+}
 
 void Game::LoadTextures() {
 	m_renderer.LoadTexture(EMPTY_CELL, "../../res/gfx/empty.png");
@@ -25,25 +25,25 @@ void Game::Update(Uint32 deltaTime) {
 	m_inputManager.Update();
 	static auto mouseX = 0, mouseY = 0;
 	if (m_inputManager.IsMouseDown<MOUSE_BUTTON_LEFT>()) {
-		std::cout << "mxp: " << mouseX << std::endl;
+		Print("mxp: ", mouseX);
 		mouseX = m_inputManager.GetMouseX(), mouseY = m_inputManager.GetMouseY();
 	}
 	else if (m_inputManager.IsMouseUp<MOUSE_BUTTON_LEFT>()) {
-		std::cout << "mx: " << mouseX << std::endl;
-		std::cout << "mxn: " << m_inputManager.GetMouseX() << std::endl;
+		Print("mx: ", mouseX);
+		Print("mxn: ", m_inputManager.GetMouseX());
 		auto difX = m_inputManager.GetMouseX() - mouseX, difY = m_inputManager.GetMouseY() - mouseY;
 		m_grid.CheckMouseSwift((abs(difX) > abs(difY)) ? (difX < 0 ? LEFT : RIGHT) : (difY < 0 ? UP : DOWN), mouseX, mouseY);
 	}
-	if (m_inputManager.IsKeyHold<'x'>()) std::cout << "x hold" << std::endl;
-	if (m_inputManager.IsKeyDown<'w'>()) std::cout << "w down" << std::endl;
-	if (m_inputManager.IsKeyUp<'f'>()) std::cout << "f up" << std::endl;
+	if (m_inputManager.IsKeyHold<'x'>()) Print("x hold");
+	if (m_inputManager.IsKeyDown<'w'>()) Print("w down");
+	if (m_inputManager.IsKeyUp<'f'>()) Print("f up");
 	if (m_inputManager.HasQuit()) m_isRunning = false;
 	m_grid.Update(deltaTime, score); // Update grid
 }
 
 void Game::Draw() {
 	m_renderer.Clear(); // Clear screen
-	m_renderer.PushImage(BACKGROUND, nullptr); // Render background
+	m_renderer.PushSprite(m_background); // Render background
 	m_grid.Draw(m_renderer); // Render grid
 	m_renderer.Render(); // Update screen
 }
