@@ -31,9 +31,10 @@ OBJECTID
 */
 
 int main(int argc, char* args[]) {
-	Renderer renderer(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Window window("Candy Crush", SCREEN_WIDTH, SCREEN_HEIGHT);
+	Renderer renderer(window);
 	Grid grid(MAX_ROWS, MAX_COLUMNS, CELL_WIDTH, CELL_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT);
-	Game game(grid, renderer);
+	Game game(window, renderer, grid);
 	game.Run();
 	return 0;
 }

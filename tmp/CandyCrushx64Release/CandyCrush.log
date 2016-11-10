@@ -1,0 +1,25 @@
+﻿  Game.cpp
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(10): warning C4552: '!': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(14): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(13): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(28): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(31): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Timer.h(12): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+  Grid.cpp
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(10): warning C4552: '!': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(14): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(13): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(28): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(31): warning C4552: '!=': operator has no effect; expected operator with side-effect
+  main.cpp
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(10): warning C4552: '!': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Window.h(14): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(13): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(28): warning C4552: '!=': operator has no effect; expected operator with side-effect
+f:\documents\github\candycrushcpp\src\candycrush\Renderer.h(31): warning C4552: '!=': operator has no effect; expected operator with side-effect
+  Generating code
+  All 911 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CandyCrush.vcxproj -> F:\Documents\GitHub\CandyCrushCpp\\bin\x64Release\CandyCrush.exe
+  CandyCrush.vcxproj -> F:\Documents\GitHub\CandyCrushCpp\\bin\x64Release\CandyCrush.pdb (Full PDB)
+  0 File(s) copied

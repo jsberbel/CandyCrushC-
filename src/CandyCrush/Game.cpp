@@ -2,12 +2,13 @@
 #include "Logger.h"
 using namespace lgr;
 
-Game::Game(Grid &grid, Renderer &renderer) :
-	m_grid(grid),
+Game::Game(Window &window, Renderer &renderer, Grid &grid) :
+	m_window(window),
 	m_renderer(renderer),
+	m_grid(grid),
 	m_inputManager(InputManager::Instance())
 {
-	m_background = { { 0, 0, m_renderer.GetScreenWidth(), m_renderer.GetScreenHeight() }, BACKGROUND };
+	m_background = { { 0, 0, m_window.GetScreenWidth(), m_window.GetScreenHeight() }, BACKGROUND };
 }
 
 void Game::LoadTextures() {
