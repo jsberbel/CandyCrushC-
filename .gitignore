@@ -1,9 +1,9 @@
 !*.lib
 !*.dll
+!*.props
 *.opendb
 *.sdf
 *.suo
 *.exe
-*.props
 *temp*
 *.vs*
