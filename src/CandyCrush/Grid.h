@@ -32,7 +32,7 @@ enum GridState { WAITING, SWAPPING_CANDIES, LINE_CHECKING, ADDING_CANDIES, SHIFT
 
 class Grid {
 	Cell **cellData;
-	int rows, cols;
+	const int m_rows, m_cols;
 	GridState gameState;
 
 	SwapInfo swapInfo;
@@ -43,9 +43,9 @@ class Grid {
 	inline OBJECT_ID &CandyID(int i, int j) const { return cellData[i][j].candy.id; }
 	inline Transform &CandyTransform(int i, int j) const { return cellData[i][j].candy.transform; }
 public:
-	Grid(int rows, int cols, int cellWidth, int cellHeight, int screenWidth, int screenHeight);
+	Grid(int rows, int cols, int cellWidth, int cellHeight, Window &window);
 	~Grid();
 	void CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY);
-	void Update(Uint32 deltaTime, int &score);
+	void Update(float deltaTime, int &score);
 	void Draw(Renderer &textureManager);
 };

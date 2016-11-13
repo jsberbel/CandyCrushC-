@@ -8,8 +8,8 @@ enum MOUSE_BUTTON { MOUSE_BUTTON_LEFT = SDL_BUTTON_LEFT, MOUSE_BUTTON_MIDDLE, MO
 
 class InputManager {
 	InputManager() = default;
-	~InputManager() = default;
 public:
+	~InputManager() = default;
 	static InputManager &Instance() {
 		static InputManager inputManager;
 		return inputManager;

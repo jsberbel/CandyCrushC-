@@ -5,7 +5,7 @@
 
 class Window {
 public:
-	Window(std::string &&name, int screenWidth, int screenHeight) : m_name(name), m_screenWidth(screenWidth), m_screenHeight(screenHeight) {
+	Window(const std::string &name, int screenWidth, int screenHeight) : m_name(name), m_screenWidth(screenWidth), m_screenHeight(screenHeight) {
 		//Initialize SDL & Set texture filtering to linear
 		ASSERT(!SDL_Init(SDL_INIT_EVERYTHING));
 		ASSERT(SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"));
