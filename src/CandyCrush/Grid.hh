@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer.h"
+#include "Sprite.hh"
 
 // Movement type when swapping candies
 enum MOVE_TYPE { UP, LEFT, DOWN, RIGHT };
@@ -33,19 +33,19 @@ enum GridState { WAITING, SWAPPING_CANDIES, LINE_CHECKING, ADDING_CANDIES, SHIFT
 class Grid {
 	Cell **cellData;
 	const int m_rows, m_cols;
-	GridState gameState;
+	GridState gridState;
 
 	SwapInfo swapInfo;
 	ShiftInfo shiftInfo;
 
 	bool CheckNeighbours(int i, int j);
 	int KillNeighbours(int i, int j);
-	inline OBJECT_ID &CandyID(int i, int j) const { return cellData[i][j].candy.id; }
+	inline ObjectID &CandyID(int i, int j) const { return cellData[i][j].candy.id; }
 	inline Transform &CandyTransform(int i, int j) const { return cellData[i][j].candy.transform; }
 public:
-	Grid(int rows, int cols, int cellWidth, int cellHeight, Window &window);
+	Grid(int rows, int cols, int cellWidth, int cellHeight);
 	~Grid();
 	void CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY);
 	void Update(float deltaTime, int &score);
-	void Draw(Renderer &textureManager);
+	void Draw();
 };

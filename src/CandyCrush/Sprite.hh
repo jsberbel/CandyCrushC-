@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL.h>
-#include "ObjectID.h"
+#include <SDL/SDL.h>
+#include "ObjectID.hh"
 
 struct Transform {
 	union {
@@ -11,5 +11,5 @@ struct Transform {
 
 struct Sprite {
 	Transform transform;
-	OBJECT_ID id;
+	ObjectID id;
 };

@@ -3,7 +3,9 @@
 !*.props
 *.opendb
 *.sdf
+*.db
 *.suo
 *.exe
-*temp*
+*tmp*
 *.vs*
+*bin*

@@ -1,22 +1,24 @@
-#include "Grid.h"
+#include "Grid.hh"
+#include "Window.hh"
+#include "Renderer.hh"
 #include <iostream>
 #include <ctime>
 
-Grid::Grid(int rows, int cols, int cellWidth, int cellHeight, Window &window) : m_rows(rows), m_cols(cols) {
+Grid::Grid(int rows, int cols, int cellWidth, int cellHeight) : m_rows(rows), m_cols(cols) {
 	cellData = new Cell*[m_rows];
 	for (int i = 0; i < m_rows; ++i) cellData[i] = new Cell[m_cols];
 	srand(unsigned(time(nullptr)));
 	for (int i = 0; i < m_rows; ++i) {
 		for (int j = 0; j < m_cols; ++j) {
-			cellData[i][j].transform = { j * (cellWidth + 2) + ((window.GetScreenWidth() - cellWidth*m_cols) >> 1),
-									i * (cellHeight + 2) + ((window.GetScreenHeight()- cellHeight*m_rows) >> 1),
+			cellData[i][j].transform = { j * (cellWidth + 2) + ((Window::Instance().GetWidth() - cellWidth*m_cols) >> 1),
+									i * (cellHeight + 2) + ((Window::Instance().GetHeight()- cellHeight*m_rows) >> 1),
 									cellWidth, cellHeight };
 			cellData[i][j].id = EMPTY_CELL;
 			CandyTransform(i, j) = cellData[i][j].transform;
-			CandyID(i, j) = OBJECT_ID(rand() % MAX_DEFAULT_CANDIES);
+			CandyID(i, j) = ObjectID(rand() % MAX_DEFAULT_CANDIES);
 		}
 	}
-	gameState = LINE_CHECKING;
+	gridState = LINE_CHECKING;
 }
 
 Grid::~Grid() {
@@ -25,20 +27,20 @@ Grid::~Grid() {
 }
 
 void Grid::CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY) {
-	if (gameState == WAITING) {
+	if (gridState == WAITING) {
 		for (int i = 0; i < m_rows; ++i) {
 			for (int j = 0; j < m_cols; ++j) {
 				if (cellData[i][j].transform.x < mouseX && cellData[i][j].transform.y < mouseY &&
 					cellData[i][j].transform.x + cellData[i][j].transform.w > mouseX && cellData[i][j].transform.y + cellData[i][j].transform.h > mouseY) {
 					switch (move) {
 						case LEFT:	if (j - 1 > -1) if (CandyID(i, j - 1) != EMPTY_CANDY)
-							gameState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j - 1, CandyTransform(i, j), CandyTransform(i, j-1)); break;
+							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j - 1, CandyTransform(i, j), CandyTransform(i, j-1)); break;
 						case UP:	if (i - 1 > -1) if (CandyID(i-1, j) != EMPTY_CANDY)
-							gameState = SWAPPING_CANDIES, swapInfo.Set(i, j, i - 1, j, CandyTransform(i, j), CandyTransform(i-1, j)); break;
+							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i - 1, j, CandyTransform(i, j), CandyTransform(i-1, j)); break;
 						case RIGHT: if (j + 1 < m_cols) if (CandyID(i, j + 1) != EMPTY_CANDY)
-							gameState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j + 1, CandyTransform(i, j), CandyTransform(i, j+1)); break;
+							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j + 1, CandyTransform(i, j), CandyTransform(i, j+1)); break;
 						case DOWN:	if (i + 1 < m_rows) if (CandyID(i+1, j) != EMPTY_CANDY)
-							gameState = SWAPPING_CANDIES, swapInfo.Set(i, j, i + 1, j, CandyTransform(i, j), CandyTransform(i+1, j)); break;
+							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i + 1, j, CandyTransform(i, j), CandyTransform(i+1, j)); break;
 					}  break;
 				}
 			}
@@ -84,7 +86,7 @@ inline int Lerp(float v0, float v1, float t) {
 }
 
 void Grid::Update(float deltaTime, int &score) {
-	switch (gameState) {
+	switch (gridState) {
 		case SWAPPING_CANDIES: {
 			auto fromPos = swapInfo.fromPos, toPos = swapInfo.toPos;
 			auto i0 = swapInfo.fromX, j0 = swapInfo.fromY, in = swapInfo.toX, jn = swapInfo.toY;
@@ -101,20 +103,20 @@ void Grid::Update(float deltaTime, int &score) {
 				CandyTransform(in, jn) = fromPos;
 				std::swap(cellData[i0][j0].candy, cellData[in][jn].candy);
 				percent = 0.0f;
-				if (reSwap) { reSwap = false; gameState = WAITING; return; }
+				if (reSwap) { reSwap = false; gridState = WAITING; return; }
 				if (!CheckNeighbours(in, jn)) {
 					std::swap(swapInfo.fromPos, swapInfo.toPos);
 					std::swap(swapInfo.fromX, swapInfo.toX);
 					std::swap(swapInfo.fromY, swapInfo.toY);
 					reSwap = true;
-				} else gameState = LINE_CHECKING;
+				} else gridState = LINE_CHECKING;
 			} else percent += deltaTime*0.01f;
 		} break;
 		case LINE_CHECKING: { // check each line
 			for (int i = m_rows - 1; i >= 0; --i)
 				for (int j = m_cols - 1; j >= 0; --j)
 					if (CandyID(i, j) != EMPTY_CANDY) { score += KillNeighbours(i, j); }
-			gameState = SHIFTING_CANDIES; 
+			gridState = SHIFTING_CANDIES; 
 			return;
 		} break;
 		case SHIFTING_CANDIES: {
@@ -133,7 +135,7 @@ void Grid::Update(float deltaTime, int &score) {
 							return;
 						}
 					}
-				} gameState = ADDING_CANDIES; return;
+				} gridState = ADDING_CANDIES; return;
 			} else {
 				CandyTransform(i, j).y = Lerp(float(y0), float(yf), percent); // Lerp candies movement down
 				// Check if swapping finished
@@ -156,13 +158,13 @@ void Grid::Update(float deltaTime, int &score) {
 			static bool endAdding;
 			endAdding = true;
 			for (int i = 0; i < m_cols; ++i)
-				if (CandyID(0, i) == EMPTY_CANDY) CandyID(0, i) = OBJECT_ID(rand() % MAX_DEFAULT_CANDIES + 1), endAdding = false;
-			gameState = (endAdding) ? WAITING : LINE_CHECKING;
+				if (CandyID(0, i) == EMPTY_CANDY) CandyID(0, i) = ObjectID(rand() % MAX_DEFAULT_CANDIES + 1), endAdding = false;
+			gridState = (endAdding) ? WAITING : LINE_CHECKING;
 		} break;
 	}
 }
 
-void Grid::Draw(Renderer &textureManager) {
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) textureManager.PushSprite(cellData[i][j]);
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i,j) != EMPTY_CANDY) textureManager.PushSprite(cellData[i][j].candy);
+void Grid::Draw() {
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) Renderer::Instance().PushSprite(cellData[i][j]);
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i,j) != EMPTY_CANDY) Renderer::Instance().PushSprite(cellData[i][j].candy);
 }
