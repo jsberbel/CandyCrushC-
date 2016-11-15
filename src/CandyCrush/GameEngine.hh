@@ -13,7 +13,8 @@ public:
 private:
 	bool m_isRunning{ true };		// Whether game is running or not
 	Scene *m_curScene{ nullptr };	// Pointer to the current scene
-	void LoadTextures(void);
+	void LoadMedia(void);
+	void AddScenes(void);
 	void Update(float deltaTime);
 	void Draw(void);
 };

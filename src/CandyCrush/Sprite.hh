@@ -1,13 +1,6 @@
 #pragma once
-#include <SDL/SDL.h>
-#include "ObjectID.hh"
-
-struct Transform {
-	union {
-		SDL_Rect rect;
-		struct { int x, y, h, w; };
-	};
-};
+#include "Transform.hh"
+#include "GUID.hh"
 
 struct Sprite {
 	Transform transform;

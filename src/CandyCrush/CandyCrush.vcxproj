@@ -26,19 +26,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.hh" />
+    <ClInclude Include="Color.hh" />
     <ClInclude Include="GameEngine.hh" />
     <ClInclude Include="GameScene.hh" />
     <ClInclude Include="Grid.hh" />
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="IOManager.hh" />
     <ClInclude Include="Logger.hh" />
-    <ClInclude Include="ObjectID.hh" />
+    <ClInclude Include="GUID.hh" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Resource.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
     <ClInclude Include="Sprite.hh" />
     <ClInclude Include="System.hh" />
+    <ClInclude Include="Text.hh" />
+    <ClInclude Include="Transform.hh" />
     <ClInclude Include="Window.hh" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

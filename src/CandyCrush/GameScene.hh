@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.hh"
 #include "Grid.hh"
+#include "Text.hh"
 
 #define MAX_ROWS 6
 #define MAX_COLUMNS 7
@@ -18,5 +19,6 @@ public:
 private:
 	Grid m_grid;
 	Sprite m_background;
-	int score{ 0 };
+	TextShaded m_scoreText;
+	int m_score{ 0 };
 };

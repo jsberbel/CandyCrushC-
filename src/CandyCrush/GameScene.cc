@@ -4,7 +4,8 @@
 using namespace Logger;
 
 GameScene::GameScene() : m_grid(MAX_ROWS, MAX_COLUMNS, CELL_WIDTH, CELL_HEIGHT) {
-	m_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, BACKGROUND };
+	m_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, ObjectID::BG_00 };
+	m_scoreText = R.CreateTextShaded<FontID::ARIAL>({ 0, 0 }, "Score: ", { 0, 0, 0, 255 }, { 255, 255, 255, 255 });
 }
 
 GameScene::~GameScene(){
@@ -27,13 +28,14 @@ void GameScene::Update(float deltatime) {
 		auto difX = IM.GetMouseX() - mouseX, difY = IM.GetMouseY() - mouseY;
 		m_grid.CheckMouseSwift((abs(difX) > abs(difY)) ? (difX < 0 ? LEFT : RIGHT) : (difY < 0 ? UP : DOWN), mouseX, mouseY);
 	}
-	m_grid.Update(deltatime, score); // Update grid
+	m_grid.Update(deltatime, m_score); // Update grid
 	if (IM.IsKeyHold<'x'>()) Print("x hold");
 	if (IM.IsKeyDown<'w'>()) Print("w down");
 	if (IM.IsKeyUp<'f'>()) Print("f up");
 }
 
 void GameScene::Draw() {
-	R.PushSprite(m_background); // Render background
+	R.Push(m_background); // Render background
 	m_grid.Draw(); // Render grid
+	R.Push(m_scoreText, "Score: " + std::to_string(m_score));
 }

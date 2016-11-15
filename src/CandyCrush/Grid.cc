@@ -13,9 +13,9 @@ Grid::Grid(int rows, int cols, int cellWidth, int cellHeight) : m_rows(rows), m_
 			cellData[i][j].transform = { j * (cellWidth + 2) + ((Window::Instance().GetWidth() - cellWidth*m_cols) >> 1),
 									i * (cellHeight + 2) + ((Window::Instance().GetHeight()- cellHeight*m_rows) >> 1),
 									cellWidth, cellHeight };
-			cellData[i][j].id = EMPTY_CELL;
+			cellData[i][j].id = ObjectID::CELL_EMPTY;
 			CandyTransform(i, j) = cellData[i][j].transform;
-			CandyID(i, j) = ObjectID(rand() % MAX_DEFAULT_CANDIES);
+			CandyID(i, j) = ObjectID(rand() % int(ObjectID::CANDY_MAX));
 		}
 	}
 	gridState = LINE_CHECKING;
@@ -33,13 +33,13 @@ void Grid::CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY) {
 				if (cellData[i][j].transform.x < mouseX && cellData[i][j].transform.y < mouseY &&
 					cellData[i][j].transform.x + cellData[i][j].transform.w > mouseX && cellData[i][j].transform.y + cellData[i][j].transform.h > mouseY) {
 					switch (move) {
-						case LEFT:	if (j - 1 > -1) if (CandyID(i, j - 1) != EMPTY_CANDY)
+						case LEFT:	if (j - 1 > -1) if (CandyID(i, j - 1) != ObjectID::CANDY_EMPTY)
 							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j - 1, CandyTransform(i, j), CandyTransform(i, j-1)); break;
-						case UP:	if (i - 1 > -1) if (CandyID(i-1, j) != EMPTY_CANDY)
+						case UP:	if (i - 1 > -1) if (CandyID(i-1, j) != ObjectID::CANDY_EMPTY)
 							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i - 1, j, CandyTransform(i, j), CandyTransform(i-1, j)); break;
-						case RIGHT: if (j + 1 < m_cols) if (CandyID(i, j + 1) != EMPTY_CANDY)
+						case RIGHT: if (j + 1 < m_cols) if (CandyID(i, j + 1) != ObjectID::CANDY_EMPTY)
 							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i, j + 1, CandyTransform(i, j), CandyTransform(i, j+1)); break;
-						case DOWN:	if (i + 1 < m_rows) if (CandyID(i+1, j) != EMPTY_CANDY)
+						case DOWN:	if (i + 1 < m_rows) if (CandyID(i+1, j) != ObjectID::CANDY_EMPTY)
 							gridState = SWAPPING_CANDIES, swapInfo.Set(i, j, i + 1, j, CandyTransform(i, j), CandyTransform(i+1, j)); break;
 					}  break;
 				}
@@ -76,7 +76,7 @@ int Grid::KillNeighbours(int i, int j) {
 	// check if main vector is filled, and then if so, kill candy neighbours
 	if (!candies.empty()) {
 		candies.push_back(&cellData[i][j].candy);
-		for (auto c : candies) c->id = EMPTY_CANDY;
+		for (auto c : candies) c->id = ObjectID::CANDY_EMPTY;
 	}
 	return int(candies.size());
 }
@@ -115,7 +115,7 @@ void Grid::Update(float deltaTime, int &score) {
 		case LINE_CHECKING: { // check each line
 			for (int i = m_rows - 1; i >= 0; --i)
 				for (int j = m_cols - 1; j >= 0; --j)
-					if (CandyID(i, j) != EMPTY_CANDY) { score += KillNeighbours(i, j); }
+					if (CandyID(i, j) != ObjectID::CANDY_EMPTY) { score += KillNeighbours(i, j); }
 			gridState = SHIFTING_CANDIES; 
 			return;
 		} break;
@@ -126,7 +126,7 @@ void Grid::Update(float deltaTime, int &score) {
 			if (endShifting) {
 				for (int i = m_rows - 2; i >= 0; --i) {
 					for (int j = 0; j < m_cols; ++j) {
-						if (CandyID(i, j) != EMPTY_CANDY && CandyID(i + 1, j) == EMPTY_CANDY) {
+						if (CandyID(i, j) != ObjectID::CANDY_EMPTY && CandyID(i + 1, j) == ObjectID::CANDY_EMPTY) {
 							shiftInfo.i = i, shiftInfo.j = j;
 							shiftInfo.fromPos = CandyTransform(i, j).y;
 							shiftInfo.toPos = CandyTransform(i + 1, j).y;
@@ -144,7 +144,7 @@ void Grid::Update(float deltaTime, int &score) {
 					CandyTransform(i + 1, j).y = y0;
 					std::swap(cellData[i][j].candy, cellData[i + 1][j].candy);
 					if (i + 1 < m_rows)
-						if (CandyID(i + 1, j) == EMPTY_CANDY) {
+						if (CandyID(i + 1, j) == ObjectID::CANDY_EMPTY) {
 							shiftInfo.i = i, shiftInfo.j = j;
 							shiftInfo.fromPos = CandyTransform(i, j).y;
 							shiftInfo.toPos = CandyTransform(i + 1, j).y;
@@ -158,13 +158,13 @@ void Grid::Update(float deltaTime, int &score) {
 			static bool endAdding;
 			endAdding = true;
 			for (int i = 0; i < m_cols; ++i)
-				if (CandyID(0, i) == EMPTY_CANDY) CandyID(0, i) = ObjectID(rand() % MAX_DEFAULT_CANDIES + 1), endAdding = false;
+				if (CandyID(0, i) == ObjectID::CANDY_EMPTY) CandyID(0, i) = ObjectID(rand() % int(ObjectID::CANDY_MAX)), endAdding = false;
 			gridState = (endAdding) ? WAITING : LINE_CHECKING;
 		} break;
 	}
 }
 
 void Grid::Draw() {
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) Renderer::Instance().PushSprite(cellData[i][j]);
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i,j) != EMPTY_CANDY) Renderer::Instance().PushSprite(cellData[i][j].candy);
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) Renderer::Instance().Push(cellData[i][j]);
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i,j) != ObjectID::CANDY_EMPTY) Renderer::Instance().Push(cellData[i][j].candy);
 }

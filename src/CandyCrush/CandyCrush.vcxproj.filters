@@ -41,9 +41,6 @@
     <ClInclude Include="Logger.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectID.hh">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,9 +48,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.hh">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.hh">
@@ -72,6 +66,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUID.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

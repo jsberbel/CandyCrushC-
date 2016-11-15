@@ -31,6 +31,13 @@ struct ShiftInfo {
 enum GridState { WAITING, SWAPPING_CANDIES, LINE_CHECKING, ADDING_CANDIES, SHIFTING_CANDIES };
 
 class Grid {
+public:
+	Grid(int rows, int cols, int cellWidth, int cellHeight);
+	~Grid();
+	void CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY);
+	void Update(float deltaTime, int &score);
+	void Draw();
+private:
 	Cell **cellData;
 	const int m_rows, m_cols;
 	GridState gridState;
@@ -42,10 +49,4 @@ class Grid {
 	int KillNeighbours(int i, int j);
 	inline ObjectID &CandyID(int i, int j) const { return cellData[i][j].candy.id; }
 	inline Transform &CandyTransform(int i, int j) const { return cellData[i][j].candy.transform; }
-public:
-	Grid(int rows, int cols, int cellWidth, int cellHeight);
-	~Grid();
-	void CheckMouseSwift(MOVE_TYPE move, Sint32 mouseX, Sint32 mouseY);
-	void Update(float deltaTime, int &score);
-	void Draw();
 };
