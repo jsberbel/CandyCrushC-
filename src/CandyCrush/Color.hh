@@ -1,8 +1,13 @@
+/******************************************************************
+* Copyright (C) 2016 Jordi Serrano Berbel <jsberbel95@gmail.com> *
+* This can not be copied, modified and/or distributed without    *
+* express permission of the copyright owner.                     *
+******************************************************************/
+
 #pragma once
 #include <SDL/SDL.h>
 
-//#define Color SDL_Color
-
+// Color structure used for UIObject purposes
 struct Color {
 	union {
 		SDL_Color col;
@@ -10,7 +15,8 @@ struct Color {
 	};
 	Color(int r_, int g_, int b_, int a_) : r(r_), g(g_), b(b_), a(a_) {};
 	Color() { r = g = b = a = 0; };
-	inline const SDL_Color &operator()() const { return col; };
+	inline const SDL_Color &operator()(void) const { return col; };
+	operator bool(void) const { return (!r || !g || !b || !a); };
 	friend bool operator==(Color &lhs, Color &rhs) {
 		return (lhs.r == rhs.r &&
 				lhs.g == rhs.g &&

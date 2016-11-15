@@ -1,10 +1,16 @@
+/******************************************************************
+* Copyright (C) 2016 Jordi Serrano Berbel <jsberbel95@gmail.com> *
+* This can not be copied, modified and/or distributed without    *
+* express permission of the copyright owner.                     *
+******************************************************************/
+
 #include "GameEngine.hh"
 #include "GameScene.hh"
 #include "System.hh"
 #include "Logger.hh"
 using namespace Logger;
 
-GameEngine::GameEngine(std::string &&name, int screenWidth, int screenHeight) { Window::Instance(name, screenWidth, screenHeight); }
+GameEngine::GameEngine(std::string &&name, int &&screenWidth, int &&screenHeight) { Window::Instance(std::move(name), std::move(screenWidth), std::move(screenHeight)); }
 
 void GameEngine::LoadMedia(void) {
 	R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 30);

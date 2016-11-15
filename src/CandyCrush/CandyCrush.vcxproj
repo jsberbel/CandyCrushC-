@@ -44,6 +44,9 @@
     <ClInclude Include="Transform.hh" />
     <ClInclude Include="Window.hh" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9450E5FA-C335-4BA6-AD40-7AADDBE3DDD6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
