@@ -15,43 +15,76 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="GameEngine.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="GameScene.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="Grid.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="GameScene.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
+    <ClInclude Include="Grid.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectID.h">
+    <ClInclude Include="InputManager.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Logger.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
+    <ClInclude Include="Renderer.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
+    <ClInclude Include="Scene.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assert.h">
+    <ClInclude Include="SceneManager.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="Window.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Assert.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IOManager.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUID.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
