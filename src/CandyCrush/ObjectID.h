@@ -1,8 +1,0 @@
-#pragma once
-
-#define MAX_DEFAULT_CANDIES 6 // count until EMPTY_CANDY
-enum OBJECT_ID {
-	CANDY_BLUE, CANDY_GREEN, CANDY_YELLOW, CANDY_RED, CANDY_PURPLE, CANDY_ORANGE, EMPTY_CANDY, // Candies IDs
-	EMPTY_CELL, // Cell IDs
-	BACKGROUND  // Background IDs
-};
