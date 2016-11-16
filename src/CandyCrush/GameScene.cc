@@ -44,7 +44,7 @@ void GameScene::Update(float deltatime) {
 }
 
 void GameScene::Draw(void) {
-	R.Push(m_background); // Render background
+	m_background.Draw(); // Render background
 	m_grid.Draw(); // Render grid
-	R.Push(m_scoreText, "Score: " + std::to_string(m_score));
+	R.Push(m_scoreText, "Score: " + std::to_string(m_score)); // Render score that will be different when updated
 }

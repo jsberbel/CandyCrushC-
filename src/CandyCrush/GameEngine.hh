@@ -19,7 +19,7 @@ public:
 	void Run(void);
 private:
 	bool m_isRunning{ true };		// Whether game is running or not
-	Scene *m_curScene{ nullptr };	// Pointer to the current scene
+	Scene *&m_curScene;	// Pointer to the current scene
 	void LoadMedia(void);
 	void AddScenes(void);
 	void Update(float deltaTime);

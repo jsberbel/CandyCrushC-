@@ -6,10 +6,12 @@
 
 #pragma once
 #include "Transform.hh"
+#include "Renderer.hh"
 #include "GUID.hh"
 
 // Sprite class that serves as part of the Model
 struct Sprite {
 	Transform transform;
 	ObjectID objectID;
+	void Draw() { R.Push(objectID, transform); };
 };

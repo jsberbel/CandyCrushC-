@@ -18,44 +18,30 @@ class SceneManager {
 	SceneManager(const SceneManager &rhs) = delete;
 	SceneManager &operator=(const SceneManager &rhs) = delete;
 public:
+	~SceneManager() { for (auto &scene : m_scenes) delete scene.second; }
 	inline static SceneManager &Instance() {
 		static SceneManager sceneManager;
 		return sceneManager;
 	}
-	~SceneManager() {
-		for (auto &scene : m_scenes) delete scene.second;	// Remove elements of the screen and destroy the screen
-		m_curSceneIndex = typeid(nullptr);					// Set current screen index to nullptr
-	}
 	template<class S> void AddScene(void) {
-		if (m_curSceneIndex == typeid(nullptr)) m_curSceneIndex = typeid(S);
 		static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene");
-		ASSERT(GetScene<S>() == nullptr);
-		S *newScene = new S;
-		m_scenes[typeid(S)] = newScene;
+		m_scenes.emplace(typeid(S), new S);
 	}
-	template<class S> S *SetScene(void) {
+	template<class S> void SetCurScene(void) {
 		static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene");
-		Scene *newScene = GetScene<S>();
-		ASSERT(newScene != nullptr);
-		auto curScene = GetCurScene();
-		curScene->OnExit();
-		curScene->SetState<SceneState::SLEEP>();
-		m_curSceneIndex = typeid(S);
-		curScene = newScene;
-		curScene->SetState<SceneState::RUNNING>();
-		curScene->OnEntry();
-		return dynamic_cast<S*>(curScene);
+		if (m_curScene != nullptr)
+			m_curScene->OnExit(),
+			m_curScene->SetState<SceneState::SLEEP>();
+		ASSERT((m_curScene = GetScene<S>()) != nullptr);
+		m_curScene->SetState<SceneState::RUNNING>();
+		m_curScene->OnEntry();
 	}
+	inline Scene *&GetCurScene(void) { return m_curScene; }
+protected:
+	std::unordered_map<std::type_index, Scene*> m_scenes;	// Array of screens
+	Scene *m_curScene{ nullptr };							// Pointer to the current scene
 	template<class S> S *GetScene(void) {
 		auto scene = m_scenes.find(typeid(S));
 		return (scene != m_scenes.end()) ? dynamic_cast<S*>(scene->second) : nullptr;
-	}
-protected:
-	std::unordered_map<std::type_index, Scene*> m_scenes;	// Array of screens
-	std::type_index m_curSceneIndex{ typeid(nullptr) };
-	Scene *GetCurScene(void) {
-		ASSERT(m_curSceneIndex != typeid(nullptr));		// Check if current screen exists
-		auto scene = m_scenes.find(m_curSceneIndex);
-		return (scene != m_scenes.end()) ? static_cast<Scene*>(scene->second) : nullptr;
 	}
 };

@@ -75,10 +75,10 @@
     <ClInclude Include="SceneManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="IOManager.hh">
+    <ClInclude Include="InputManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.hh">
+    <ClInclude Include="IOManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
   </ItemGroup>

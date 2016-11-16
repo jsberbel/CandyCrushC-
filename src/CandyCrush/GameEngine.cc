@@ -10,7 +10,9 @@
 #include "Logger.hh"
 using namespace Logger;
 
-GameEngine::GameEngine(std::string &&name, int &&screenWidth, int &&screenHeight) { Window::Instance(std::move(name), std::move(screenWidth), std::move(screenHeight)); }
+GameEngine::GameEngine(std::string &&name, int &&screenWidth, int &&screenHeight) : m_curScene(SM.GetCurScene()) { 
+	Window::Instance(std::move(name), std::move(screenWidth), std::move(screenHeight)); 
+}
 
 void GameEngine::LoadMedia(void) {
 	R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 30);
@@ -26,7 +28,7 @@ void GameEngine::LoadMedia(void) {
 
 void GameEngine::AddScenes(void) {
 	SM.AddScene<GameScene>();
-	m_curScene = SM.SetScene<GameScene>();
+	SM.SetCurScene<GameScene>();
 }
 
 void GameEngine::Update(float deltaTime) {

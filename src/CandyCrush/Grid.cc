@@ -6,13 +6,11 @@
 
 #include "Grid.hh"
 #include "Window.hh"
-#include "Renderer.hh"
 #include "IOManager.hh"
-#include <iostream>
 #include <ctime>
 
 Grid::Grid(std::string &&filename, int cellWidth, int cellHeight) {
-	auto lvlData(IOManager::LoadLevel("lvl/testLvl.dat", m_rows, m_cols));
+	auto lvlData(IOManager::LoadLevel(std::move(filename), m_rows, m_cols));
 	cellData = new Cell*[m_rows];
 	for (int i = 0; i < m_rows; ++i) cellData[i] = new Cell[m_cols];
 	srand(unsigned(time(nullptr)));
@@ -174,6 +172,6 @@ void Grid::Update(float deltaTime, int &score) {
 }
 
 void Grid::Draw() {
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) Renderer::Instance().Push(cellData[i][j]);
-	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i,j) != ObjectID::CANDY_EMPTY) Renderer::Instance().Push(cellData[i][j].candy);
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) cellData[i][j].Draw();
+	for (int i = 0; i < m_rows; ++i) for (int j = 0; j < m_cols; ++j) if (CandyID(i, j) != ObjectID::CANDY_EMPTY) cellData[i][j].candy.Draw();
 }
