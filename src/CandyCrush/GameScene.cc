@@ -4,10 +4,10 @@
 * express permission of the copyright owner.                     *
 ******************************************************************/
 
-#include "GameScene.hh"
+#include "GUI.hh"
 #include "System.hh"
 #include "Logger.hh"
-#include "GUI.hh"
+#include "GameScene.hh"
 using namespace Logger;
 
 #define CELL_WIDTH 80
@@ -38,15 +38,15 @@ void GameScene::Update(void) {
 	}
 	m_grid.Update(m_score); // Update grid
 	// Test InputManager key methods
-	if (IM.IsKeyHold<'x'>()) Println("x hold");
-	if (IM.IsKeyDown<'w'>()) Println("w down");
-	if (IM.IsKeyUp<'f'>()) Println("f up");
+	if (IM.IsKeyHold<'a'>()) Println("a hold");
+	if (IM.IsKeyDown<'0'>()) Println("0 down");
+	if (IM.IsKeyUp<KEY_BUTTON_DOWN>()) Println("down arrow up");
 }
 
 void GameScene::Draw(void) {
 	m_background.Draw(); // Render background
 	m_grid.Draw(); // Render grid
-	GUI::DrawTextShaded<FontID::WILLY_WONKA>("ENTI CRUSH",
+	GUI::DrawTextShaded<FontID::FACTORY>("ENTI CRUSH",
 										{ W.GetWidth() >> 1, int(W.GetHeight()*.1f), 1, 1 }, 
 										{ 190, 0, 160 }, { 50, 200, 230 }); // Render score that will be different when updated
 	GUI::DrawTextBlended<FontID::CANDY>("Score: " + std::to_string(m_score), 

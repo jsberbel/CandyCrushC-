@@ -8,9 +8,6 @@
 #define TM TimeManager::Instance()
 
 class TimeManager {
-	TimeManager() = default;
-	TimeManager(const TimeManager &rhs) = delete;
-	TimeManager &operator=(const TimeManager &rhs) = delete;
 public:
 	inline static TimeManager &Instance(void) {
 		static TimeManager timeManager;
@@ -26,6 +23,10 @@ public:
 	}
 	Uint32 GetCurTime() { return SDL_GetTicks(); };
 	inline float GetDeltaTime() { return m_deltatime; };
+private:
+	TimeManager() = default;
+	TimeManager(const TimeManager &rhs) = delete;
+	TimeManager &operator=(const TimeManager &rhs) = delete;
 private:
 	float m_deltatime{ .0f }; // Delta time in seconds
 	Uint32 lastTime{ SDL_GetTicks() }; // Last time sample in seconds

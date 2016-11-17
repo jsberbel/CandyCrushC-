@@ -17,4 +17,9 @@ inline std::ostream &operator<<(std::ostream &os, const ObjectID &id) { return o
 inline std::istream &operator>>(std::istream &is, ObjectID &id) { return is >> reinterpret_cast<int&>(id); };
 
 // Enum ID used to store each true type font for text rendering
-enum class FontID : int { ARIAL, CANDY, WILLY_WONKA, MAX };
+enum class FontID : int { 
+	ARIAL,
+	CANDY,
+	FACTORY, 
+	MAX 
+};

@@ -5,9 +5,10 @@
 ******************************************************************/
 
 #pragma once
-#include "Scene.hh"
 #include "Grid.hh"
+#include "Scene.hh"
 
+// GameScene class with the main gameplay mode
 class GameScene : public Scene {
 public:
 	explicit GameScene();

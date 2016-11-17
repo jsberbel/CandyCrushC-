@@ -5,10 +5,10 @@
 ******************************************************************/
 
 #pragma once
-#include "Transform.hh"
-#include "Renderer.hh"
-#include "Color.hh"
 #include "ID.hh"
+#include "Color.hh"
+#include "Renderer.hh"
+#include "Transform.hh"
 
 // Static GUI class for rendering UI Objects purposes
 class GUI {

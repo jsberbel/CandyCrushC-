@@ -11,13 +11,13 @@
 #include "GameScene.hh"
 #pragma endregion TODO
 
-// Initializes game needs and controls the game loop
+//! Initializes game needs and controls the game loop
 namespace GameEngine {
-	// Loads main resources such as game images and fonts
+	//! Loads main resources such as game images and fonts
 	void LoadMedia(void) {
 		R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 40);
 		R.LoadFont<FontID::CANDY>("fnt/candy.ttf", 50);
-		R.LoadFont<FontID::WILLY_WONKA>("fnt/candsb.ttf", 80);
+		R.LoadFont<FontID::FACTORY>("fnt/candsb.ttf", 80);
 		R.LoadTexture<ObjectID::CELL_EMPTY>("gfx/empty.png");
 		R.LoadTexture<ObjectID::CANDY_BLUE>("gfx/blue.png");
 		R.LoadTexture<ObjectID::CANDY_RED>("gfx/red.png");
@@ -27,15 +27,17 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::CANDY_YELLOW>("gfx/yellow.png");
 		R.LoadTexture<ObjectID::BG_00>("gfx/bg.jpg");
 	}
-	// Adds the game scenes into the Scene Manager and decides which is the first screen
+	//! Adds the game scenes into the Scene Manager and decides which is the first screen
 	void AddScenes(void) {
 		SM.AddScene<GameScene>();
 		SM.SetCurScene<GameScene>();
 	}
-	// Runs the game specifying the window's name and dimensions
-	// @param screenWidth : Determines the window's width
-	// @param screenHeight : Determines the window's height
-	// @param name : Determines the window's title
+	/** 
+	 * Runs the game specifying the window's name and dimensions
+	 * @tparam screenWidth Determines the window's width
+	 * @tparam screenHeight Determines the window's height
+	 * @param name Determines the window's title
+	 */
 	template<int screenWidth, int screenHeight>
 	void Run(std::string &&name) {
 		Window::Instance(std::move(name), screenWidth, screenHeight); // Initialize window Singleton instance for the first time

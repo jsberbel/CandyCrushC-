@@ -5,18 +5,15 @@
 ******************************************************************/
 
 #pragma once
-#include <typeindex>
-#include <unordered_map>
 #include "Scene.hh"
 #include "Assert.hh"
+#include <typeindex>
+#include <unordered_map>
 
 #define SM SceneManager::Instance()
 
 // SceneManager class to store and control the whole game scenes
 class SceneManager {
-	SceneManager() = default;
-	SceneManager(const SceneManager &rhs) = delete;
-	SceneManager &operator=(const SceneManager &rhs) = delete;
 public:
 	~SceneManager() { for (auto &scene : m_scenes) delete scene.second; }
 	inline static SceneManager &Instance() {
@@ -37,11 +34,15 @@ public:
 		m_curScene->OnEntry();
 	}
 	inline Scene *&GetCurScene(void) { return m_curScene; }
-protected:
-	std::unordered_map<std::type_index, Scene*> m_scenes;	// Array of screens
-	Scene *m_curScene{ nullptr };							// Pointer to the current scene
+private:
+	SceneManager() = default;
+	SceneManager(const SceneManager &rhs) = delete;
+	SceneManager &operator=(const SceneManager &rhs) = delete;
 	template<class S> S *GetScene(void) {
 		auto scene = m_scenes.find(typeid(S));
 		return (scene != m_scenes.end()) ? dynamic_cast<S*>(scene->second) : nullptr;
 	}
+private:
+	std::unordered_map<std::type_index, Scene*> m_scenes;	// Array of screens
+	Scene *m_curScene{ nullptr };							// Pointer to the current scene
 };

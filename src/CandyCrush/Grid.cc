@@ -4,11 +4,11 @@
 * express permission of the copyright owner.                     *
 ******************************************************************/
 
+#include <ctime>
 #include "Grid.hh"
 #include "Window.hh"
 #include "IOManager.hh"
 #include "TimeManager.hh"
-#include <ctime>
 
 Grid::Grid(std::string &&filename, int cellWidth, int cellHeight) {
 	auto lvlData(IOManager::LoadLevel(std::move(filename), m_rows, m_cols));
@@ -32,7 +32,6 @@ Grid::~Grid() {
 	for (int i = 0; i < m_rows; ++i) delete[] cellData[i];
 	delete[] cellData;
 }
-
 
 void Grid::CheckMouseSwift(const MouseCoords &mouseBegin, const MouseCoords &mouseEnd) {
 	if (gridState == GridState::WAITING) {

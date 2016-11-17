@@ -11,13 +11,6 @@
 #define SCREEN_HEIGHT 768
 
 int main(int argc, char* args[]) {
-	GameEngine::Run<SCREEN_WIDTH, SCREEN_HEIGHT>("Candy Crush");
+	GameEngine::Run<SCREEN_WIDTH, SCREEN_HEIGHT>("ENTI Crush");
 	return 0;
 }
-
-/*
-GUI
-fps fixed
-time class
-game engine not class anymore
-*/

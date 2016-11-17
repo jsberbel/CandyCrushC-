@@ -5,8 +5,8 @@
 ******************************************************************/
 
 #pragma once
-#include <SDL/SDL.h>
 #include <string>
+#include <SDL/SDL.h>
 #include "Assert.hh"
 
 #define W Window::Instance()

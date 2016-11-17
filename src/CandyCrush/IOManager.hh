@@ -5,14 +5,14 @@
 ******************************************************************/
 
 #pragma once
-#include <XML/rapidxml_utils.hpp>
-#include "Resource.hh"
-#include "Logger.hh"
-#include "Assert.hh"
 #include "ID.hh"
 #include <fstream>
 #include <sstream>
 #include <iterator>
+#include "Logger.hh"
+#include "Assert.hh"
+#include "Resource.hh"
+//#include <XML/rapidxml_utils.hpp>
 using namespace Logger;
 
 namespace IOManager {
@@ -43,13 +43,13 @@ namespace IOManager {
 		}
 		rows = int(lvlData.size()); cols = int(lvlData[0].size());
 		fileData.close();
-	#pragma region DEBUG_DATA
-		Println("Level: ", filename);
-		for (auto &r : lvlData) {
-			for (auto &c : r) Print(c, ' ');
-			Endln();
-		}
-	#pragma endregion DEBUG_DATA
+		#pragma region DEBUG_DATA
+			Println("Level: ", filename);
+			for (auto &r : lvlData) {
+				for (auto &c : r) Print(c, ' ');
+				Endln();
+			}
+		#pragma endregion
 		return std::move(lvlData);
 	}
 
