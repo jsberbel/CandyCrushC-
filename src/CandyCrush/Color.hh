@@ -13,7 +13,8 @@ struct Color {
 		SDL_Color col;
 		struct { Uint8 r, g, b, a; };
 	};
-	Color(int r_, int g_, int b_, int a_) : r(r_), g(g_), b(b_), a(a_) {};
+	Color(int r_, int g_, int b_, int a_ = 255) : r(r_), g(g_), b(b_), a(a_) {};
+	Color(int c) { r = g = b = a = c; };
 	Color() { r = g = b = a = 0; };
 	inline const SDL_Color &operator()(void) const { return col; };
 	operator bool(void) const { return (r || g || b || a); };

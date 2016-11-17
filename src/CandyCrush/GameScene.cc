@@ -7,6 +7,7 @@
 #include "GameScene.hh"
 #include "System.hh"
 #include "Logger.hh"
+#include "GUI.hh"
 using namespace Logger;
 
 #define CELL_WIDTH 80
@@ -14,7 +15,6 @@ using namespace Logger;
 
 GameScene::GameScene(void) : m_grid("lvl/testLvl.dat", CELL_WIDTH, CELL_HEIGHT) {
 	m_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, ObjectID::BG_00 };
-	m_scoreText = R.CreateTextShaded<FontID::ARIAL>({ 0, 0 }, { 0, 0, 0, 255 }, { 255, 255, 255, 255 });
 }
 
 GameScene::~GameScene(void){
@@ -26,7 +26,7 @@ void GameScene::OnEntry(void) {
 void GameScene::OnExit(void) {
 }
 
-void GameScene::Update(float deltatime) {
+void GameScene::Update(void) {
 	static MouseCoords mouseCoords(0,0);
 	if (IM.IsMouseDown<MOUSE_BUTTON_LEFT>()) {
 		Println("===============");
@@ -36,7 +36,7 @@ void GameScene::Update(float deltatime) {
 		Println("mxn: ", IM.GetMouseCoords());
 		m_grid.CheckMouseSwift(mouseCoords, IM.GetMouseCoords());
 	}
-	m_grid.Update(deltatime, m_score); // Update grid
+	m_grid.Update(m_score); // Update grid
 	// Test InputManager key methods
 	if (IM.IsKeyHold<'x'>()) Println("x hold");
 	if (IM.IsKeyDown<'w'>()) Println("w down");
@@ -46,5 +46,10 @@ void GameScene::Update(float deltatime) {
 void GameScene::Draw(void) {
 	m_background.Draw(); // Render background
 	m_grid.Draw(); // Render grid
-	R.Push(m_scoreText, "Score: " + std::to_string(m_score)); // Render score that will be different when updated
+	GUI::DrawTextShaded<FontID::WILLY_WONKA>("ENTI CRUSH",
+										{ W.GetWidth() >> 1, int(W.GetHeight()*.1f), 1, 1 }, 
+										{ 190, 0, 160 }, { 50, 200, 230 }); // Render score that will be different when updated
+	GUI::DrawTextBlended<FontID::CANDY>("Score: " + std::to_string(m_score), 
+										{ W.GetWidth() >> 1, int(W.GetHeight()*.9f), 1, 1 }, 
+										{ 115, 0, 180 }); // Render score that will be different when updated
 }

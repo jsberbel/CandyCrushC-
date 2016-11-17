@@ -25,7 +25,7 @@ public:
 	// Called when leaving from a scene
 	virtual void OnExit(void) = 0;
 	// Main update scene function called in game loop
-	virtual void Update(float deltatime) = 0;
+	virtual void Update(void) = 0;
 	// Main draw scene function called in game loop
 	virtual void Draw(void) = 0;
 	// State methods

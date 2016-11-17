@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEngine.cc" />
     <ClCompile Include="GameScene.cc" />
     <ClCompile Include="Grid.cc" />
     <ClCompile Include="main.cc" />
@@ -33,14 +32,15 @@
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="IOManager.hh" />
     <ClInclude Include="Logger.hh" />
-    <ClInclude Include="GUID.hh" />
+    <ClInclude Include="ID.hh" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Resource.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
     <ClInclude Include="Sprite.hh" />
     <ClInclude Include="System.hh" />
-    <ClInclude Include="Text.hh" />
+    <ClInclude Include="GUI.hh" />
+    <ClInclude Include="TimeManager.hh" />
     <ClInclude Include="Transform.hh" />
     <ClInclude Include="Window.hh" />
   </ItemGroup>

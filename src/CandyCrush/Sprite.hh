@@ -7,7 +7,7 @@
 #pragma once
 #include "Transform.hh"
 #include "Renderer.hh"
-#include "GUID.hh"
+#include "ID.hh"
 
 // Sprite class that serves as part of the Model
 struct Sprite {

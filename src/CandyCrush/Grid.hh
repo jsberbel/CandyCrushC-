@@ -17,7 +17,7 @@ public:
 	Grid(std::string &&fileName, int cellWidth, int cellHeight);
 	~Grid();
 	void CheckMouseSwift(const MouseCoords &mouseBegin, const MouseCoords &mouseEnd);
-	void Update(float deltaTime, int &score);
+	void Update(int &score);
 	void Draw();
 private:
 	struct Cell : public Sprite { Sprite candy; } **cellData; // Cell structure to store its position, its texture and its candy (wether is empty or not)

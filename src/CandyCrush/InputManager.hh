@@ -5,14 +5,14 @@
 ******************************************************************/
 
 #pragma once
-#include <SDL/SDL.h>
 #include <queue>
-#include <unordered_map>
 #include <iostream>
+#include <SDL/SDL.h>
+#include <unordered_map>
 
 #define IM InputManager::Instance()
 
-// Struct that encapsulates the mouse coordinates
+// Encapsulates everything related to mouse coordinates
 struct MouseCoords { 
 	Sint32 x{ 0 }, y{ 0 };
 	MouseCoords() = default;
@@ -21,21 +21,27 @@ struct MouseCoords {
 	friend std::ostream &operator<<(std::ostream &os, const MouseCoords &rhs) { return os << '(' << rhs.x << ", " << rhs.y << ')'; };
 };
 
-// Enum button that identifies each button pressed with the mouse
+// Identifies each button pressed with the mouse (left | middle | right)
 enum MouseButton { MOUSE_BUTTON_LEFT = SDL_BUTTON_LEFT, MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_RIGHT };
 
-// InputManager class that controls all input info and stores it to be used in other pats of the code
+// Controls all input info and stores it to be used in other pats of the code as a Singleton
 class InputManager {
+	// Default constructor
 	InputManager() = default;
+	// Deleted copy constructor
 	InputManager(const InputManager &rhs) = delete;
+	// Deleted copy assignment operator
 	InputManager &operator=(const InputManager &rhs) = delete;
+	// Defines each state of the input event stored (DOWN -> HOLD | UP -> EMPTY)
 	enum class InputValue { UP = SDL_RELEASED, DOWN, HOLD, EMPTY };
 public:
-	~InputManager() = default;
+	// Creates a Singleton instance of the InputManager class
+	// @return : A reference to the static instance
 	inline static InputManager &Instance() {
 		static InputManager inputManager;
 		return inputManager;
 	}
+	// Unpacks events
 	void Update(void) {
 		EmptyInput();
 		SDL_Event evnt;

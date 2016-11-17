@@ -7,7 +7,6 @@
 #pragma once
 #include "Scene.hh"
 #include "Grid.hh"
-#include "Text.hh"
 
 class GameScene : public Scene {
 public:
@@ -15,11 +14,10 @@ public:
 	~GameScene() override;
 	void OnEntry(void) override;
 	void OnExit(void) override;
-	void Update(float deltatime) override;
+	void Update(void) override;
 	void Draw(void) override;
 private:
 	Grid m_grid;
 	Sprite m_background;
-	TextBG m_scoreText;
 	int m_score{ 0 };
 };

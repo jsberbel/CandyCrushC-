@@ -22,15 +22,9 @@
     <ClCompile Include="Grid.cc">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngine.cc">
-      <Filter>Controller</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.hh">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.hh">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.hh">
@@ -60,9 +54,6 @@
     <ClInclude Include="GameEngine.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="GUID.hh">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.hh">
       <Filter>View</Filter>
     </ClInclude>
@@ -78,8 +69,17 @@
     <ClInclude Include="InputManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="IOManager.hh">
+    <ClInclude Include="ID.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.hh">
       <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="IOManager.hh">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

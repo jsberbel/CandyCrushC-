@@ -9,7 +9,7 @@
 #include "Resource.hh"
 #include "Logger.hh"
 #include "Assert.hh"
-#include "GUID.hh"
+#include "ID.hh"
 #include <fstream>
 #include <sstream>
 #include <iterator>

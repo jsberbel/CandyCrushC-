@@ -9,10 +9,11 @@
 #include <SDL/SDL_ttf.h>
 #include <unordered_map>
 #include "Resource.hh"
+#include "Transform.hh"
 #include "Window.hh"
 #include "Assert.hh"
-#include "Logger.hh"
-#include "GUID.hh"
+#include "Color.hh"
+#include "ID.hh"
 
 #define R Renderer::Instance()
 
@@ -37,8 +38,8 @@ class Renderer {
 		ASSERT((IMG_Init(imgFlags) & imgFlags));
 		ASSERT(TTF_Init() != -1);
 	}
-	Renderer(const Renderer &rhs) = default;
-	Renderer &operator=(const Renderer &rhs) = default;
+	Renderer(const Renderer &rhs) = delete;
+	Renderer &operator=(const Renderer &rhs) = delete;
 public:
 	inline static Renderer &Instance(void) {
 		static Renderer renderer;
@@ -51,31 +52,39 @@ public:
 		IMG_Quit();
 		TTF_Quit();
 	}
-	template<ObjectID id>
-	void LoadTexture(std::string &&filename) {
+	template<ObjectID objectID> void LoadTexture(std::string &&filename) {
 		//Load image at specified path
 		auto loadedSurface = IMG_Load(RESOURCE_FILE(filename));
 		ASSERT_MSG(loadedSurface != nullptr, "Unable to load image " + filename);
 		//Create texture from surface pixels
-		ASSERT_MSG(m_textureData.emplace(id, SDL_CreateTextureFromSurface(m_SDLRenderer, loadedSurface)).second, "Unable to create texture from " + filename);
+		ASSERT_MSG(m_textureData.emplace(objectID, SDL_CreateTextureFromSurface(m_SDLRenderer, loadedSurface)).second, "Unable to create texture from " + filename);
 		SDL_FreeSurface(loadedSurface); //Get rid of loaded surface
 	}
-	template<FontID id>
-	void LoadFont(std::string &&filename, int size) {
-		ASSERT_MSG(m_fontData.emplace(id, TTF_OpenFont(RESOURCE_FILE(filename), size)).second, "Unable to create font from " + filename);
+	template<FontID fontID> void LoadFont(std::string &&filename, int size) {
+		ASSERT_MSG(m_fontData.emplace(fontID, TTF_OpenFont(RESOURCE_FILE(filename), size)).second, "Unable to create font from " + filename);
 	}
-	template<FontID id, FontStyle style>
-	void SetFontStyle() { TTF_SetFontStyle(m_fontData[id], style); }
-	void Push(SDL_Texture *texture, Transform transform) {
-		SDL_RenderCopy(m_SDLRenderer, texture, nullptr, &transform());
+	template<FontID fontID> inline TTF_Font *GetFont() { 
+		return m_fontData[fontID];
 	}
-	void Push(ObjectID objectID, Transform transform) {
-		SDL_RenderCopy(m_SDLRenderer, m_textureData[objectID], nullptr, &transform());
+	template<FontID fontID, FontStyle style> void SetFontStyle() {
+		TTF_SetFontStyle(m_fontData[fontID], style); 
+	}
+	void Push(SDL_Surface *surface, Transform &transform) {
+		ASSERT(surface != nullptr);
+		auto texture = SDL_CreateTextureFromSurface(m_SDLRenderer, surface);
+		transform.x -= surface->w/2;
+		transform.y -= surface->h/2;
+		transform.w *= surface->w;
+		transform.h *= surface->h;
+		ASSERT(!SDL_RenderCopy(m_SDLRenderer, texture, nullptr, &transform()));
+		SDL_FreeSurface(surface);
+		SDL_DestroyTexture(texture);
+	}
+	void Push(const ObjectID &objectID, const Transform &transform) {
+		ASSERT(!SDL_RenderCopy(m_SDLRenderer, m_textureData[objectID], nullptr, &transform()));
 	}
 	void Clear(void) const { SDL_RenderClear(m_SDLRenderer); };
 	void Render(void) const { SDL_RenderPresent(m_SDLRenderer); };
-	inline TTF_Font* GetFont(FontID fontID) { return m_fontData[fontID]; };
-	inline SDL_Texture* CreateTexture(SDL_Surface *surface) { return SDL_CreateTextureFromSurface(m_SDLRenderer, surface); };
 private:
 	std::unordered_map<ObjectID, SDL_Texture*> m_textureData;
 	std::unordered_map<FontID, TTF_Font*> m_fontData;
