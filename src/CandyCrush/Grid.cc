@@ -124,7 +124,7 @@ void Grid::Update(int &score) {
 					std::swap(swapInfo.fromY, swapInfo.toY);
 					reSwap = true; return;
 				} else gridState = GridState::LINE_CHECKING;
-			} else percent += TM.GetDeltaTime()*0.01f;
+			} else percent += TM.GetDeltaTime()*10.f;
 		} break;
 		case GridState::LINE_CHECKING: { // check each line
 			for (int i = m_rows - 1; i >= 0; --i)
@@ -165,7 +165,7 @@ void Grid::Update(int &score) {
 							return;
 						}
 					endShifting = true; return;
-				} else percent += TM.GetDeltaTime()*0.01f;
+				} else percent += TM.GetDeltaTime()*10.f;
 			}
 		} break;
 		case GridState::ADDING_CANDIES: {
@@ -175,6 +175,10 @@ void Grid::Update(int &score) {
 				if (CandyID(0, i) == ObjectID::CANDY_EMPTY) CandyID(0, i) = ObjectID(rand() % int(ObjectID::CANDY_MAX)), endAdding = false;
 			gridState = (endAdding) ? GridState::WAITING : GridState::LINE_CHECKING;
 		} break;
+	}
+	if (IM.IsKeyHold<'x'>()) {
+		CandyTransform(0, 0).x += TM.GetDeltaTime()*200.f;
+		CandyTransform(0, 0).y += TM.GetDeltaTime()*200.f;
 	}
 }
 

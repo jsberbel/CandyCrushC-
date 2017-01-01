@@ -29,7 +29,7 @@ enum FontStyle {
 class Renderer {
 	Renderer() {
 		//Create renderer for window
-		m_SDLRenderer = SDL_CreateRenderer(W(), -1, SDL_RENDERER_ACCELERATED);
+		m_SDLRenderer = SDL_CreateRenderer(W(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		ASSERT(m_SDLRenderer != nullptr);
 		//Initialize renderer color
 		SDL_SetRenderDrawColor(m_SDLRenderer, 255, 255, 255, 255);
@@ -55,13 +55,13 @@ public:
 	template<ObjectID objectID> void LoadTexture(std::string &&filename) {
 		//Load image at specified path
 		auto loadedSurface = IMG_Load(RESOURCE_FILE(filename));
-		ASSERT_MSG(loadedSurface != nullptr, "Unable to load image " + filename);
+		ASSERT(loadedSurface != nullptr, "Unable to load image " + filename);
 		//Create texture from surface pixels
-		ASSERT_MSG(m_textureData.emplace(objectID, SDL_CreateTextureFromSurface(m_SDLRenderer, loadedSurface)).second, "Unable to create texture from " + filename);
+		ASSERT(m_textureData.emplace(objectID, SDL_CreateTextureFromSurface(m_SDLRenderer, loadedSurface)).second, "Unable to create texture from " + filename);
 		SDL_FreeSurface(loadedSurface); //Get rid of loaded surface
 	}
 	template<FontID fontID> void LoadFont(std::string &&filename, int size) {
-		ASSERT_MSG(m_fontData.emplace(fontID, TTF_OpenFont(RESOURCE_FILE(filename), size)).second, "Unable to create font from " + filename);
+		ASSERT(m_fontData.emplace(fontID, TTF_OpenFont(RESOURCE_FILE(filename), size)).second, "Unable to create font from " + filename);
 	}
 	template<FontID fontID> inline TTF_Font *GetFont() { 
 		return m_fontData[fontID];

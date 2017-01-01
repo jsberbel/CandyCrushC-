@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<difficultMode>
+
+	<MODE difficult = "facil">
+
+		
+
+		<numCol>5</numCol>
+
+		<numRow>5</numRow>
+
+		<time>4</time>
+
+		<vInicial>1</vInicial>
+
+    		<alimentsIncials>1</alimentsIncials>
+
+   		<incrementAliments>1</incrementAliments>	
+
+	</MODE>
+
+  
+
+	<MODE difficult ="medio">
+
+  
+
+      		<numCol>2</numCol>
+
+      		<numRow>2</numRow>
+
+    		<time>2</time>
+
+    		<vInicial>2</vInicial>
+
+    		<alimentsInicials>2</alimentsInicials>
+
+    		<incrementAliments>2</incrementAliments>
+
+  	</MODE>
+
+  
+
+	<MODE difficult ="dificil">
+
+    
+
+     		<numCol>1</numCol>
+
+      		<numRow>1</numRow>
+
+    		<time>1</time>
+
+    		<vInicial>4</vInicial>
+
+    		<alimentsInicials>3</alimentsInicials>
+
+    		<incrementAliments>3</incrementAliments>
+
+  	</MODE>
+
+</difficultMode>

@@ -2,33 +2,33 @@
 #include <SDL/SDL.h>
 #include <functional>
 
-#define SCREEN_FPS 120.0f
-#define SCREEN_TICKS_PER_FRAME (1000.0f / SCREEN_FPS)
-
 #define TM TimeManager::Instance()
 
 class TimeManager {
 public:
+	const float FPS{ 60.f };
+	const float TICKS_PER_FRAME{ 1.f/ FPS };
 	inline static TimeManager &Instance(void) {
 		static TimeManager timeManager;
 		return timeManager;
 	}
-	void FPSBegin() {
-		m_deltatime = float(SDL_GetTicks() - lastTime);
-		lastTime = SDL_GetTicks();
+	void Update(std::function<void()> gameUpdate) {
+		m_deltatime = float(GetCurTime() - m_lastTime) / SDL_GetPerformanceFrequency();
+		m_lastTime = GetCurTime();
+		m_renderTime += m_deltatime;
+		while (m_renderTime >= TICKS_PER_FRAME) {
+			gameUpdate();
+			m_renderTime -= TICKS_PER_FRAME;
+		}
 	}
-	void FPSEnd(std::function<void()> drawFunction) {
-		if (renderTime >= SCREEN_TICKS_PER_FRAME) drawFunction(), renderTime -= SCREEN_TICKS_PER_FRAME;
-		renderTime += m_deltatime; // Updates the render timer
-	}
-	Uint32 GetCurTime() { return SDL_GetTicks(); };
+	inline Uint64 GetCurTime() { return SDL_GetPerformanceCounter(); };
 	inline float GetDeltaTime() { return m_deltatime; };
 private:
 	TimeManager() = default;
 	TimeManager(const TimeManager &rhs) = delete;
 	TimeManager &operator=(const TimeManager &rhs) = delete;
 private:
-	float m_deltatime{ .0f }; // Delta time in seconds
-	Uint32 lastTime{ SDL_GetTicks() }; // Last time sample in seconds
-	float renderTime{ 0.0f }; // Time control for rendering
+	float m_deltatime{ 0.f }; // Delta time in seconds
+	Uint64 m_lastTime{ GetCurTime() }; // Last time sample in seconds
+	float m_renderTime{ 0 }; // Time control for rendering
 };

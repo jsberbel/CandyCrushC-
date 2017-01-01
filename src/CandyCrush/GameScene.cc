@@ -27,7 +27,7 @@ void GameScene::OnExit(void) {
 }
 
 void GameScene::Update(void) {
-	static MouseCoords mouseCoords(0,0);
+	static MouseCoords mouseCoords(0, 0);
 	if (IM.IsMouseDown<MOUSE_BUTTON_LEFT>()) {
 		Println("===============");
 		Println("mxp: ", mouseCoords);
